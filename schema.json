@@ -1,0 +1,108 @@
+{
+  "section_basic": {
+    "type": "section",
+    "name": "基本设置",
+    "collapsed": false,
+    "fields": {
+      "searxng_api_url": {
+        "type": "string",
+        "name": "SearXNG 搜索服务的访问地址",
+        "hint": "必填。填你 SearXNG 实例的地址，默认 http://127.0.0.1:8080。格式示例：http://192.0.2.1:8080。必须以 http:// 或 https:// 开头，结尾不要带斜杠。填错（如写成 127.0.0.1:8080 缺协议）会导致搜索失败并提示无法连接搜索服务。",
+        "default": "http://127.0.0.1:8080"
+      }
+    }
+  },
+  "section_search": {
+    "type": "section",
+    "name": "网页搜索",
+    "collapsed": false,
+    "fields": {
+      "default_result_limit": {
+        "type": "integer",
+        "name": "每次搜索默认返回几条结果",
+        "hint": "默认 5。可填 1-10 的整数。填 0 或负数会被当成 1，填超过 10 会被压到 10。模型也可在调用时临时指定条数，此项只是兜底。",
+        "default": 5
+      },
+      "cache_enabled": {
+        "type": "switch",
+        "name": "开启搜索缓存",
+        "hint": "默认开启。开启后，相同关键词在缓存时长内重复搜索会直接返回上次结果，减少对搜索服务的请求次数，降低被上游限制的风险。关闭后每次搜索都会真实请求。",
+        "default": true
+      },
+      "cache_ttl_seconds": {
+        "type": "integer",
+        "name": "缓存保留时长（秒）",
+        "hint": "默认 300（即 5 分钟）。可填 0-86400 的整数，单位秒。填 0 表示缓存立即过期（等于不缓存）。填负数会当 0 处理。",
+        "default": 300
+      }
+    }
+  },
+  "section_image": {
+    "type": "section",
+    "name": "图片搜索",
+    "collapsed": false,
+    "fields": {
+      "image_delivery_mode": {
+        "type": "string",
+        "name": "图片结果怎么交给用户",
+        "hint": "默认 model。可选 model / user / both 三种：model 只把候选图片的链接清单交给 AI，由 AI 自己决定发哪张（最省流量、最灵活）；user 插件直接把下载好的图片发给用户；both 两者都做（既给 AI 清单，也直接发图）。填其他值会被当成 model。",
+        "default": "model",
+        "options": [
+          "model",
+          "user",
+          "both"
+        ]
+      },
+      "image_result_limit": {
+        "type": "integer",
+        "name": "图片搜索返回几条结果",
+        "hint": "默认 8。可填 1-10 的整数，越界会被压到 1 或 10。model 模式指交给 AI 的候选条数；user 模式单次最多直接发 5 张（防止刷屏）。",
+        "default": 8
+      },
+      "image_candidate_limit": {
+        "type": "integer",
+        "name": "图片搜索一次拉取的候选数量",
+        "hint": "默认 120。SearXNG 一次最多返回的原始图片结果数，拉回来后插件会做去重、有效性检查和排序，再截取最终条数。可填 10-500 的整数。填得越大越有可能找到好图，但搜索服务压力也越大。",
+        "default": 120
+      }
+    }
+  },
+  "section_fetch": {
+    "type": "section",
+    "name": "网页正文提取",
+    "collapsed": false,
+    "fields": {
+      "max_content_length": {
+        "type": "integer",
+        "name": "提取的网页正文最多返回多少字符",
+        "hint": "默认 3000。可填 200-20000 的整数，越界会被压到 200 或 20000。超出部分会被截断。调大能看更多内容，但会占用更多模型上下文。",
+        "default": 3000
+      }
+    }
+  },
+  "section_network": {
+    "type": "section",
+    "name": "网络设置",
+    "collapsed": false,
+    "fields": {
+      "request_timeout": {
+        "type": "integer",
+        "name": "单个请求的超时时间（秒）",
+        "hint": "默认 15。可填 3-120 的整数，小于 3 会当 3 处理。超过该时长未返回的请求会被放弃并提示超时。",
+        "default": 15
+      },
+      "proxy": {
+        "type": "string",
+        "name": "HTTP 代理地址（留空则读系统环境变量）",
+        "hint": "默认留空。留空时自动使用环境变量 https_proxy / http_proxy；如需强制指定代理，填形如 http://127.0.0.1:7890 的地址。填错（如缺少协议）会导致连接代理失败、搜索报错。",
+        "default": ""
+      },
+      "user_agent": {
+        "type": "string",
+        "name": "User-Agent（浏览器标识，留空用默认）",
+        "hint": "默认留空（用内置的 Chrome 标识）。一般不需要改；当某些网站拦截搜索请求时，可填任意浏览器 UA，例如 Mozilla/5.0 (Windows NT 10.0; Win64; x64)。填错只是可能被网站识别为脚本。",
+        "default": ""
+      }
+    }
+  }
+}

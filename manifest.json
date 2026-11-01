@@ -1,0 +1,18 @@
+{
+  "plugin_id": "kira_plugin_searxng",
+  "display_name": "SearXNG 搜索",
+  "version": "0.1.3",
+  "license": "MIT",
+  "author": "BA7LCY",
+  "description": "通过 SearXNG 元搜索引擎进行网页搜索、图片搜索和网页正文提取。",
+  "repo": "https://github.com/BA7LCY/kira_plugin_searxng",
+  "core_version": ">=3.0.2",
+  "tags": ["search", "tools"],
+  "icon": "icon.png",
+  "locales": {
+    "zh": {
+      "display_name": "SearXNG 搜索",
+      "description": "通过 SearXNG 元搜索引擎进行网页搜索、图片搜索和网页正文提取。"
+    }
+  }
+}

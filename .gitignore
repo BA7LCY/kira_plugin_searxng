@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+
+# 内部留档与协作文件（不进公开仓库）
+docs/
+scripts/
+AGENTS.md
+.deploy.local.md
+
+# 只在本机开发时用，不进公开仓库（文件仍在本地，需要时可 git add -f）
+tests/
+pytest.ini
+CONTEXT.md
+
+# 插件数据（运行时生成）
+data/
+*.log
+
+# 测试依赖（本地引导安装）
+.testdeps/
+.tmp_pip/
+
+# pytest 沙箱下的临时目录
+pytest-cache-files-*/
+
+# 本地环境探测脚本（不发布）
+_probe_env.py
+
+# 历史改写用的本地备份（不外传）
+.rewrite-backup/

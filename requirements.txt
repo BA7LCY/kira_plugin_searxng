@@ -1,0 +1,4 @@
+# 运行时依赖
+httpx>=0.24,<1
+beautifulsoup4>=4.11,<5
+readability-lxml>=0.8,<1
